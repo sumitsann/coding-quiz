@@ -1,50 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coding Quiz</title>
-    <link rel="stylesheet" href="/assets/css/reset.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/reset.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
 
-</head>
-
-<body>
+  <body>
     <header></header>
 
     <main>
-        <section class="container">
-            <div id="game" class="align-center align-column">
-                <div id="question">
-                    <h2> What is the answer of this question?</h2>
-                </div>
+      <div class="container">
+        <div id="game">
+          <div>
+            <h2 id="question">What is the answer of this question?</h2>
+          </div>
 
-                <div id="answer-choice">
-                    <p>A</p>
-                    <p>Choice A</p>
-                </div>
-                <div id="answer-choice">
-                    <p>B</p>
-                    <p>Choice B</p>
-                </div>
-                <div id="answer-choice">
-                    <p>C</p>
-                    <p>Choice C</p>
-                </div>
-                <div id="answer-choice">
-                    <p>D</p>
-                    <p>Choice D</p>
-                </div>
-
-            </div>
-        </section>
+          <div id="choice-container">
+            <p class="choice-prefix">A.</p>
+            <p class="choice-text" data-number="1">Choice A</p>
+          </div>
+          <div id="choice-container">
+            <p class="choice-prefix">B.</p>
+            <p class="choice-text" data-number="2">Choice B</p>
+          </div>
+          <div id="choice-container">
+            <p class="choice-prefix">C.</p>
+            <p class="choice-text" data-number="3">Choice C</p>
+          </div>
+          <div id="choice-container">
+            <p class="choice-prefix">D.</p>
+            <p class="choice-text" data-number="4">Choice D</p>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer></footer>
 
     <script src="/assets/js/script.js"></script>
-</body>
-
+  </body>
 </html>
