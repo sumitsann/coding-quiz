@@ -12,19 +12,36 @@
 </head>
 
 <body>
-    <header></header>
+    <main class="quiz">
+        <header class="mainHeader">
+            <h1>Web Development Quiz</h1>
+            <span id="timerarea"></span>
+        </header>
 
-    <main>
-        <section class="container">
-            <div id="home" class="align-center align-column">
-                <h1>Quick Quiz</h1>
-                <button type="button"><a href="/game.html">Play</a></button>
-                <button type="button"><a href="/highscores.html">High Scores</a></button>
-            </div>
+
+        <section id="questionsContainer" class="hide">
+            <div id="question"></div>
+            <div id="answers" class="buttonArea"></div>
         </section>
+
+        <section class="scores">
+            <div id="scoreArea" class="hide"></div>
+        </section>
+
+        <section class="controls">
+            <button class="start" id="startButton">Start</button>
+            <button class="btn" id="showScoresButton">See High Scores</button>
+        </section>
+
+        <div id="scoreArea" class="hide">
+            <span id="scoreDisplay"></span>
+            <input type="text" name="initials" id="initials">
+            <button id="submitScore" class="submit">Submit</button>
+        </div>
+
     </main>
 
-    <footer></footer>
+
 
     <script src="/assets/js/script.js"></script>
 </body>

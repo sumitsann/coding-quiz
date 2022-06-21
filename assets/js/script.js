@@ -1,106 +1,27 @@
-const question = document.getElementById("question");
-const choices = Array.from(document.getElementsByClassName("choice-text"));
+let time = 75;
 
-let currentQuestion = {};
-let acceptingAnswers = false;
+let runningTimer = 0;
+
 let score = 0;
-let questionCounter = 0;
-let availableQuestions = [];
 
-let questions = [
-  {
-    question: "Which tag is used to list items with bullets?",
-    choice1: "<bullet>…</bullet>",
-    choice2: "<list>…</list>",
-    choice3: "<ul>…</ul>",
-    choice4: "<ol>…</ol>",
-    answer: 2,
-  },
-  {
-    question: "How to define a link that should open in a new page in HTML?",
-    choice1:
-      "<a href = “https://stackhowto.com” target = “blank”>Click Here</a>",
-    choice2:
-      "<a href = “https://stackhowto.com” target =“_blank”>Click Here</a>",
-    choice3:
-      "<a href = “https://stackhowto.com” target = “#blank”>Click Here</a>",
-    choice4:
-      "<a href = “https://stackhowto.com” target = “@blank”>Click Here</a>",
-    answer: 1,
-  },
-  {
-    question: "The first page of a website is called _____.",
-    choice1: "Design page",
-    choice2: "Home page",
-    choice3: "Front page",
-    choice4: "Main page",
-    answer: 1,
-  },
-  {
-    question: "How to define a background image for a web page?",
-    choice1: "<body background = “test.jpg”>",
-    choice2: "<body background image = “test.jpg”>",
-    choice3: "<background = “test.jpg”>",
-    choice4: "<background image = “test.jpg”>",
-    answer: 0,
-  },
-  {
-    question: "The Head tag is used for?",
-    choice1: "Writing CSS styles",
-    choice2: " Writing Javascript",
-    choice3: " Including CSS and JS files",
-    choice4: "All the answers are true",
-    answer: 3,
-  },
-];
+let userName = "";
 
-//constant declaration
-const BONUS_POINT = 10;
-const MAX_QUESTIONS = 5;
+let questionNumber;
 
-function startGame() {
-  questionCounter = 0;
-  score = 0;
-  availableQuestions = questions;
-  getNewQuestion();
-}
+let finalScore = 0;
 
-function getNewQuestion() {
-  if (availableQuestions.length == 0 || questionCounter >= MAX_QUESTIONS) {
-    return window.location.assign("./highscores.html");
-  }
-  questionCounter++;
-  const questionIndex = Math.floor(Math.random() * availableQuestions.length);
-  currentQuestion = availableQuestions[questionIndex];
+const MAX_HIGH_SCORE = 5;
 
-  question.innerText = currentQuestion.question;
+const startButton = document.getElementById("startButton");
 
-  choices.forEach((choice) => {
-    const number = choice.dataset["number"];
-    choice.innerText = currentQuestion["choice" + number];
-  });
+const questionContainer = document.getElementById("questionsConstiner");
 
-  availableQuestions.splice(questionIndex, 1);
-  acceptingAnswers = true;
-}
+const questionElement = document.getElementById("question");
 
-choices.forEach((choice) => {
-  choice.addEventListener("click", (e) => {
-    if (!acceptingAnswers) return;
-    acceptingAnswers = false;
-    const selectedChoice = e.target;
-    const selectedAnswer = selectedChoice.dataset["number"];
+const answerButtons = document.getElementById("answers");
 
-    var classToApply = "incorrect";
-    if (selectedAnswer - 1 == currentQuestion.answer) {
-      classToApply = "correct";
-    } else {
-      classToApply = "incorrect";
-    }
+const countdown = document.getElementById("timerArea");
 
-    console.log(classToApply);
-    getNewQuestion();
-  });
-});
+const scoreArea = document.getElementById("scoreArea");
 
-startGame();
+const highScoreButton = document.getElementById("showScoresButton");
