@@ -1,49 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coding Quiz</title>
-    <link rel="stylesheet" href="/assets/css/reset.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-
-</head>
-
-<body>
-    <main class="quiz">
-        <header class="mainHeader">
-            <h1>Web Development Quiz</h1>
-            <span id="timerarea"></span>
-        </header>
-
-
-        <section id="questionsContainer" class="hide">
-            <div id="question"></div>
-            <div id="answers" class="buttonArea"></div>
-        </section>
-
-        <section class="scores">
-            <div id="scoreArea" class="hide"></div>
-        </section>
-
-        <section class="controls">
-            <button class="start" id="startButton">Start</button>
-            <button class="btn" id="showScoresButton">See High Scores</button>
-        </section>
-
-        <div id="scoreArea" class="hide">
-            <span id="scoreDisplay"></span>
-            <input type="text" name="initials" id="initials">
-            <button id="submitScore" class="submit">Submit</button>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body class="neutral">
+    <div class="container">
+      <div id="question-container" class="hide">
+        <div id="question">Question</div>
+        <div id="answer-buttons" class="options-btn">
+          <button class="btn">Answer 1</button>
+          <button class="btn">Answer 2</button>
+          <button class="btn">Answer 3</button>
+          <button class="btn">Answer 4</button>
         </div>
+      </div>
+      <div class="controls">
+        <button id="start-btn" class="start-btn btn">Start</button>
+        <button id="next-btn" class="next-btn btn hide">Next</button>
+      </div>
+    </div>
 
-    </main>
-
-
-
-    <script src="/assets/js/script.js"></script>
-</body>
-
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
