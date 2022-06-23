@@ -3,73 +3,7 @@
   font-family: "Times New Roman", Times, serif;
 }
 
-body {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-}
-
-body.neutral {
-  background-color: aqua;
-}
-body.correct {
-  background-color: greenyellow;
-}
-body.incorrect {
-  background-color: red;
-}
-
-.container {
-  width: 750px;
-  max-width: 85%;
-  background-color: azure;
-  border: 2px solid grey;
-  border-radius: 15px;
+button {
+  font-size: 30px;
   padding: 20px;
-}
-
-.options-btn {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  margin: 20px;
-  gap: 10px;
-}
-
-.controls {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  margin: 20px;
-  gap: 10px;
-}
-
-.btn {
-  color: beige;
-  background-color: rgb(0, 157, 255);
-  border-radius: 5px;
-}
-
-.btn:hover {
-  background-color: blueviolet;
-}
-
-.btn.correct {
-  background-color: greenyellow;
-}
-
-.btn.incorrect {
-  background-color: red;
-}
-
-.start-btn,
-.next-btn {
-  font-size: larger;
-  font-weight: bold;
-}
-
-.hide {
-  display: none;
 }

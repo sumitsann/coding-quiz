@@ -1,82 +1,82 @@
-const startBtn = document.querySelector("#start-btn");
-const questionContainerElement = document.querySelector("#question-container");
-const questionElement = document.querySelector("#question");
-const answerButtonsElement = document.querySelector("#answer-buttons");
-let shuffledQuestions, currentQuestionIndex;
+const start = document.querySelector("#start-button");
+const displayTime = document.querySelector("#display-time");
+const operationDiv = document.querySelector("#operation");
 
-startBtn.addEventListener("click", startGame);
+const questionPanel = document.querySelector(".hide");
 
-// function to start the game
+questionPanel.hidden = true;
 
+let highScore = 0;
+let score = 0;
+let correctAnswer = 0;
+
+let timerInterval;
+let timeLeft = 0;
+
+start.addEventListener("click", startGame);
+
+window.onload = function () {
+  let browserScore = localStorage.getItem("highScore");
+  if (browserScore != undefined) highScore = browserScore;
+  document.getElementById("highScore").innerHTML = "High Score: " + highScore;
+};
 function startGame() {
-  startBtn.classList.add("hide");
-  shuffledQuestions = questions.sort(() => Math.random() - 0.5);
-  currentQuestionIndex = 0;
-  console.log(shuffledQuestions);
-  questionContainerElement.classList.remove("hide");
-  showQuestion(0);
+  timeLeft = 15;
+  questionPanel.hidden = false;
+  start.disabled = true;
+  nextQuestion();
+
+  displayTime.hidden = false;
+
+  timerInterval = setInterval(function () {
+    timeLeft -= 1;
+    displayTime.innerHTML = " Time Left: " + timeLeft;
+    if (timeLeft == 0) {
+      clearInterval(timerInterval);
+      questionPanel.hidden = true;
+      start.disabled = false;
+    }
+  }, 1000);
 }
 
-function showQuestion(currentQuestionIndex) {
-  questionElement.innerText = questions[0].question;
-  console.log(questions.question);
+function nextQuestion() {
+  let firstNum = Math.floor(Math.random() * 12);
+  let secondNum = Math.floor(Math.random() * 12);
+  correctAnswer = firstNum * secondNum;
+  operationDiv.innerHTML = firstNum + "*" + secondNum;
+
+  // set the button to have random answers and one should be the correct answer
+
+  let wrongAnswer1 =
+    Math.floor(Math.random() * 12) * Math.floor(Math.random() * 12);
+  let wrongAnswer2 =
+    Math.floor(Math.random() * 12) * Math.floor(Math.random() * 12);
+  let wrongAnswer3 =
+    Math.floor(Math.random() * 12) * Math.floor(Math.random() * 12);
+  let wrongAnswer4 =
+    Math.floor(Math.random() * 12) * Math.floor(Math.random() * 12);
+
+  document.querySelector("#btn1").innerHTML = wrongAnswer1;
+  document.querySelector("#btn2").innerHTML = wrongAnswer2;
+  document.querySelector("#btn3").innerHTML = wrongAnswer3;
+  document.querySelector("#btn4").innerHTML = wrongAnswer4;
+  let correctAnswerIndex = Math.floor(Math.random() * 4 + 1);
+  let correctAnswerID = "btn" + correctAnswerIndex;
+  document.getElementById(correctAnswerID).innerHTML = correctAnswer;
 }
 
-const questions = [
-  {
-    question: "JavaScript is the programming language of the",
-    answers: [
-      { text: "desktop", correct: false },
-      { text: "mobile", correct: false },
-      { text: "web", correct: true },
-      { text: "server", correct: false },
-    ],
-  },
-  {
-    question: " Which type of JavaScript language is",
-    answers: [
-      { text: "Object-oriented", correct: false },
-      { text: "Object-based", correct: true },
-      { text: "Functional programming", correct: false },
-      { text: "All of the above", correct: false },
-    ],
-  },
-  {
-    question:
-      "Which of the following statement(s) is true about the JavaScript?",
-    answers: [
-      { text: "desktop", correct: false },
-      { text: "mobile", correct: false },
-      { text: "web", correct: true },
-      { text: "server", correct: false },
-    ],
-  },
-  {
-    question: "JavaScript is the programming language of the",
-    answers: [
-      {
-        text: "It is a scripting language used to make the website interactive",
-        correct: true,
-      },
-      {
-        text: "It is an advanced version of Java for Desktop and Mobile application development",
-        correct: false,
-      },
-      {
-        text: "It is a markup language of Java to develop the webpages",
-        correct: false,
-      },
-      { text: "All of the above", correct: false },
-    ],
-  },
-  {
-    question:
-      "Which property is used to define the HTML content to an HTML element with a specific id?",
-    answers: [
-      { text: "innerText", correct: false },
-      { text: "innerContent", correct: false },
-      { text: "elementText", correct: false },
-      { text: "innerHTML", correct: true },
-    ],
-  },
-];
+document.getElementsByTagName("button").onClick = function checkAnswer() {
+  let answer = document.getElementById("btn" + buttonIndex).innerHTML;
+  if (answer == correctAnswer) {
+    score++;
+    document.getElementById("currentScore").innerHTML = "Score: " + score;
+
+    nextQuestion();
+  }
+
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem("highScore", highScore);
+    document.getElementById("highScore").innerHTML = "High Score: " + highScore;
+  }
+};
