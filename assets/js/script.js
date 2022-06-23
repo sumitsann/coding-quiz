@@ -65,13 +65,11 @@ function nextQuestion() {
   document.getElementById(correctAnswerID).innerHTML = correctAnswer;
 }
 
-document.getElementsByTagName("button").onClick = function checkAnswer() {
+function checkAnswer(buttonIndex) {
   let answer = document.getElementById("btn" + buttonIndex).innerHTML;
   if (answer == correctAnswer) {
     score++;
     document.getElementById("currentScore").innerHTML = "Score: " + score;
-
-    nextQuestion();
   }
 
   if (score > highScore) {
@@ -79,4 +77,5 @@ document.getElementsByTagName("button").onClick = function checkAnswer() {
     localStorage.setItem("highScore", highScore);
     document.getElementById("highScore").innerHTML = "High Score: " + highScore;
   }
-};
+  nextQuestion();
+}
