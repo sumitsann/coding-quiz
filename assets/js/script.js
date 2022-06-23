@@ -7,10 +7,14 @@ const choiceA = document.querySelector("#a");
 const choiceB = document.querySelector("#b");
 const choiceC = document.querySelector("#c");
 const choiceD = document.querySelector("#d");
-const userInitial = document.querySelector("#userinitial");
+
 const userInfoPanel = document.querySelector("#user-info-panel");
 const previousScoresPanel = document.querySelector("#previous-scores-panel");
+const submitUser = document.querySelector("#submitUser");
 
+let highScore;
+
+let userInitial;
 let score = 0;
 let timeLeft = 0;
 let timeInterval;
@@ -96,9 +100,6 @@ let correct;
 
 let currentQuestion;
 function generateNextQuestion() {
-  if (currentQuestionIndex == finalQuestionIndex) {
-    quizPanel.hide = true;
-  }
   currentQuestion = questions[currentQuestionIndex];
   question.innerText = currentQuestion.question;
   choiceA.innerText = currentQuestion.choiceA;
@@ -117,7 +118,36 @@ function checkAnswer(answer) {
     score++;
   }
   currentQuestionIndex++;
+  if (currentQuestionIndex == finalQuestionIndex) {
+    quizPanel.hidden = true;
+    userInfoPanel.hidden = false;
+    previousScoresPanel.hidden = false;
+    timer.hidden = true;
+  } else {
+    generateNextQuestion();
+  }
+  submitUser.addEventListener("click", addUserData);
 
-  generateNextQuestion();
   scorePanel.innerHTML = "Score: " + score;
+
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem("highScore", highScore);
+    localStorage.setitem("userInitial", userInitial);
+  }
+}
+
+function addUserData() {
+  userInitial = document.getElementById("userInitial").value;
+  if (userInitial.length == 2) {
+    var savedScore = JSON.parse(localStorage.getItem("score"));
+    var currentUser = userInitial;
+
+    var currentScore = {
+      name: currentUser,
+      score: score,
+    };
+  } else {
+    alert(" Please Enter Two Letters");
+  }
 }
