@@ -12,8 +12,7 @@ const userInfoPanel = document.querySelector("#user-info-panel");
 const highScorePanel = document.querySelector("#high-score-panel");
 const submitUser = document.querySelector("#submitUser");
 
-let highScore = 0;
-localStorage.getItem("highScore", highScore);
+var highScore = localStorage.getItem("highScore");
 
 let userInitial;
 let score = 0;
@@ -133,12 +132,16 @@ function checkAnswer(answer) {
   submitUser.addEventListener("click", function addUserData() {
     userInitial = document.getElementById("userInitial").value;
     if (userInitial.length == 2) {
-      if (score > highScore) {
-        highScore = score;
-        highScorePanel.innerHTML = "High Score:" + highScore;
+      if (highScore != null) {
+        if (score > highScore) {
+          localStorage.setItem("highScore", score);
+        } else {
+          localStorage.setItem("highScore", score);
+        }
       }
     } else {
-      alert(" Please Enter Two Letters");
+      alert("please enter 2 alphabets only");
     }
+    highScorePanel.innerHTML = "High Score:" + highScore;
   });
 }
