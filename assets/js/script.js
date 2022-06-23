@@ -134,10 +134,13 @@ function checkAnswer(answer) {
     if (userInitial.length == 2) {
       if (highScore != null) {
         if (score > highScore) localStorage.setItem("highScore", score);
-      } else {
+
         alert("please enter 2 alphabets only");
+
+        highScorePanel.innerHTML = "High Score:" + highScore;
       }
-      highScorePanel.innerHTML = "High Score:" + highScore;
+    } else {
+      ("Please Enter 2 Letters");
     }
   });
 }
