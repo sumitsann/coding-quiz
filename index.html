@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Quiz</title>
+  </head>
+  <body>
+    <div id="quiz-container">
+      <button id="startButton">Start</button>
+      <div id="timer"></div>
+      <div id="score-panel">Score:</div>
+      <div id="quizPanel">
+        <div id="question">Question Will Go Here.</div>
+        <div id="choices">
+          <button id="a" onclick="checkAnswer(1)">A</button>
+          <button id="b" onclick="checkAnswer(2)">B</button>
+          <button id="c" onclick="checkAnswer(3)">C</button>
+          <button id="d" onclick="checkAnswer(4)">D</button>
+        </div>
+      </div>
+      <div id="user-info-panel">
+        <p>Enter Your Initials</p>
+        <input type="text" id="userInitial" />
+        <button id="submitUser">Submit</button>
+      </div>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coding Quiz</title>
-  <link rel="stylesheet" href="./assets/css/style.css" />
-</head>
-
-<body>
-  <button id="start-button">Start</button>
-
-  <div id="highScore">High Score: </div>
-  <div id="currentScore">Score: </div>
-
-  <div id="display-time" hidden>Time Remaining: 15</div>
-
-  <h3>Please answer the following question.</h3>
-
-  <div class="hide">
-    <div id="operation">What is 0*0?</div>
-
-    <button onclick="checkAnswer(1)" id="btn1">0 onC</button>
-    <button onclick="checkAnswer(2)" id="btn2">0</button>
-    <br />
-    <button onclick="checkAnswer(3)" id="btn3">0</button>
-    <button onclick="checkAnswer(4)" id="btn4">0</button>
-  </div>
-  <script src="./assets/js/script.js"></script>
-</body>
-
+      <div id="previous-scores-panel">
+        <button id="seePreviousScore">See Previous Score</button>
+      </div>
+    </div>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>

@@ -1,81 +1,123 @@
-const start = document.querySelector("#start-button");
-const displayTime = document.querySelector("#display-time");
-const operationDiv = document.querySelector("#operation");
+const start = document.querySelector("#startButton");
+const timer = document.querySelector("#timer");
+const quizPanel = document.querySelector("#quizPanel");
+const scorePanel = document.querySelector("#score-panel");
+const question = document.querySelector("#question");
+const choiceA = document.querySelector("#a");
+const choiceB = document.querySelector("#b");
+const choiceC = document.querySelector("#c");
+const choiceD = document.querySelector("#d");
+const userInitial = document.querySelector("#userinitial");
+const userInfoPanel = document.querySelector("#user-info-panel");
+const previousScoresPanel = document.querySelector("#previous-scores-panel");
 
-const questionPanel = document.querySelector(".hide");
-
-questionPanel.hidden = true;
-
-let highScore = 0;
 let score = 0;
-let correctAnswer = 0;
-
-let timerInterval;
 let timeLeft = 0;
+let timeInterval;
+scorePanel.hidden = true;
+quizPanel.hidden = true;
+userInfoPanel.hidden = true;
+previousScoresPanel.hidden = true;
 
-start.addEventListener("click", startGame);
+//start the quiz after clicking start
+start.addEventListener("click", startQuiz);
 
-window.onload = function () {
-  let browserScore = localStorage.getItem("highScore");
-  if (browserScore != undefined) highScore = browserScore;
-  document.getElementById("highScore").innerHTML = "High Score: " + highScore;
-};
-function startGame() {
-  timeLeft = 15;
-  questionPanel.hidden = false;
+function startQuiz() {
   start.disabled = true;
-  nextQuestion();
+  quizPanel.hidden = false;
+  scorePanel.hidden = false;
 
-  displayTime.hidden = false;
+  timeLeft = 20;
 
-  timerInterval = setInterval(function () {
+  timeInterval = setInterval(function () {
     timeLeft -= 1;
-    displayTime.innerHTML = " Time Left: " + timeLeft;
+    timer.innerHTML = " Time Left: " + timeLeft;
     if (timeLeft == 0) {
-      clearInterval(timerInterval);
-      questionPanel.hidden = true;
-      start.disabled = false;
+      clearInterval(timeInterval);
+      quizPanel.hidden = true;
+      userInfoPanel.hidden = false;
+      previousScoresPanel.hidden = false;
     }
   }, 1000);
+
+  generateNextQuestion();
 }
 
-function nextQuestion() {
-  let firstNum = Math.floor(Math.random() * 12);
-  let secondNum = Math.floor(Math.random() * 12);
-  correctAnswer = firstNum * secondNum;
-  operationDiv.innerHTML = firstNum + "*" + secondNum;
+let questions = [
+  {
+    question: "Which tag is used to list items with bullets?",
+    choiceA: "<bullet>…</bullet>",
+    choiceB: "<list>…</list>",
+    choiceC: "<ul>…</ul>",
+    choiceD: "<ol>…</ol>",
+    answer: 3,
+  },
+  {
+    question: "How to define a link that should open in a new page in HTML?",
+    choiceA:
+      "<a href = “https://stackhowto.com” target = “blank”>Click Here</a>",
+    choiceB:
+      "<a href = “https://stackhowto.com” target =“_blank”>Click Here</a>",
+    choiceC:
+      "<a href = “https://stackhowto.com” target = “#blank”>Click Here</a>",
+    choiceD:
+      "<a href = “https://stackhowto.com” target = “@blank”>Click Here</a>",
+    answer: 2,
+  },
+  {
+    question: "The first page of a website is called _____.",
+    choiceA: "Design page",
+    choiceB: "Home page",
+    choiceC: "Front page",
+    choiceD: "Main page",
+    answer: 2,
+  },
+  {
+    question: "How to define a background image for a web page?",
+    choiceA: "<body background = “test.jpg”>",
+    choiceB: "<body background image = “test.jpg”>",
+    choiceC: "<background = “test.jpg”>",
+    choiceD: "<background image = “test.jpg”>",
+    answer: 1,
+  },
+  {
+    question: "The Head tag is used for?",
+    choiceA: "Writing CSS styles",
+    choiceB: " Writing Javascript",
+    choiceC: " Including CSS and JS files",
+    choiceD: "All the answers are true",
+    answer: 4,
+  },
+];
 
-  // set the button to have random answers and one should be the correct answer
+var finalQuestionIndex = questions.length;
+let currentQuestionIndex = 0;
+let correct;
 
-  let wrongAnswer1 =
-    Math.floor(Math.random() * 12) * Math.floor(Math.random() * 12);
-  let wrongAnswer2 =
-    Math.floor(Math.random() * 12) * Math.floor(Math.random() * 12);
-  let wrongAnswer3 =
-    Math.floor(Math.random() * 12) * Math.floor(Math.random() * 12);
-  let wrongAnswer4 =
-    Math.floor(Math.random() * 12) * Math.floor(Math.random() * 12);
+let currentQuestion;
+function generateNextQuestion() {
+  if (currentQuestionIndex == finalQuestionIndex) {
+    quizPanel.hide = true;
+  }
+  currentQuestion = questions[currentQuestionIndex];
+  question.innerText = currentQuestion.question;
+  choiceA.innerText = currentQuestion.choiceA;
+  choiceB.innerText = currentQuestion.choiceB;
+  choiceC.innerText = currentQuestion.choiceC;
+  choiceD.innerText = currentQuestion.choiceD;
 
-  document.querySelector("#btn1").innerHTML = wrongAnswer1;
-  document.querySelector("#btn2").innerHTML = wrongAnswer2;
-  document.querySelector("#btn3").innerHTML = wrongAnswer3;
-  document.querySelector("#btn4").innerHTML = wrongAnswer4;
-  let correctAnswerIndex = Math.floor(Math.random() * 4 + 1);
-  let correctAnswerID = "btn" + correctAnswerIndex;
-  document.getElementById(correctAnswerID).innerHTML = correctAnswer;
+  console.log(currentQuestionIndex);
+  console.log(finalQuestionIndex);
 }
 
-function checkAnswer(buttonIndex) {
-  let answer = document.getElementById("btn" + buttonIndex).innerHTML;
-  if (answer == correctAnswer) {
+function checkAnswer(answer) {
+  correct = questions[currentQuestionIndex].answer;
+
+  if (answer == correct && currentQuestionIndex != finalQuestionIndex) {
     score++;
-    document.getElementById("currentScore").innerHTML = "Score: " + score;
   }
+  currentQuestionIndex++;
 
-  if (score > highScore) {
-    highScore = score;
-    localStorage.setItem("highScore", highScore);
-    document.getElementById("highScore").innerHTML = "High Score: " + highScore;
-  }
-  nextQuestion();
+  generateNextQuestion();
+  scorePanel.innerHTML = "Score: " + score;
 }
