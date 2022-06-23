@@ -133,15 +133,11 @@ function checkAnswer(answer) {
     userInitial = document.getElementById("userInitial").value;
     if (userInitial.length == 2) {
       if (highScore != null) {
-        if (score > highScore) {
-          localStorage.setItem("highScore", score);
-        } else {
-          localStorage.setItem("highScore", score);
-        }
+        if (score > highScore) localStorage.setItem("highScore", score);
+      } else {
+        alert("please enter 2 alphabets only");
       }
-    } else {
-      alert("please enter 2 alphabets only");
+      highScorePanel.innerHTML = "High Score:" + highScore;
     }
-    highScorePanel.innerHTML = "High Score:" + highScore;
   });
 }
