@@ -9,10 +9,11 @@ const choiceC = document.querySelector("#c");
 const choiceD = document.querySelector("#d");
 
 const userInfoPanel = document.querySelector("#user-info-panel");
-const previousScoresPanel = document.querySelector("#previous-scores-panel");
+const highScorePanel = document.querySelector("#high-score-panel");
 const submitUser = document.querySelector("#submitUser");
 
-let highScore;
+let highScore = 0;
+localStorage.getItem("highScore", highScore);
 
 let userInitial;
 let score = 0;
@@ -21,7 +22,7 @@ let timeInterval;
 scorePanel.hidden = true;
 quizPanel.hidden = true;
 userInfoPanel.hidden = true;
-previousScoresPanel.hidden = true;
+highScorePanel.hidden = true;
 
 //start the quiz after clicking start
 start.addEventListener("click", startQuiz);
@@ -40,7 +41,7 @@ function startQuiz() {
       clearInterval(timeInterval);
       quizPanel.hidden = true;
       userInfoPanel.hidden = false;
-      previousScoresPanel.hidden = false;
+      highScorePanel.hidden = false;
     }
   }, 1000);
 
@@ -121,33 +122,23 @@ function checkAnswer(answer) {
   if (currentQuestionIndex == finalQuestionIndex) {
     quizPanel.hidden = true;
     userInfoPanel.hidden = false;
-    previousScoresPanel.hidden = false;
+    highScorePanel.hidden = false;
     timer.hidden = true;
   } else {
     generateNextQuestion();
   }
-  submitUser.addEventListener("click", addUserData);
 
   scorePanel.innerHTML = "Score: " + score;
 
-  if (score > highScore) {
-    highScore = score;
-    localStorage.setItem("highScore", highScore);
-    localStorage.setitem("userInitial", userInitial);
-  }
-}
-
-function addUserData() {
-  userInitial = document.getElementById("userInitial").value;
-  if (userInitial.length == 2) {
-    var savedScore = JSON.parse(localStorage.getItem("score"));
-    var currentUser = userInitial;
-
-    var currentScore = {
-      name: currentUser,
-      score: score,
-    };
-  } else {
-    alert(" Please Enter Two Letters");
-  }
+  submitUser.addEventListener("click", function addUserData() {
+    userInitial = document.getElementById("userInitial").value;
+    if (userInitial.length == 2) {
+      if (score > highScore) {
+        highScore = score;
+        highScorePanel.innerHTML = "High Score:" + highScore;
+      }
+    } else {
+      alert(" Please Enter Two Letters");
+    }
+  });
 }
