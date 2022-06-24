@@ -131,13 +131,13 @@ function checkAnswer(answer) {
 
   submitUser.addEventListener("click", function addUserData() {
     userInitial = document.getElementById("userInitial").value;
+
     if (userInitial.length == 2) {
-      if (highScore != null) {
-        if (score > highScore) localStorage.setItem("highScore", score);
-        highScorePanel.innerHTML = "High Score:" + highScore;
+      if (score > highScore) {
+        localStorage.setItem("highScore", score);
       }
-    } else {
-      alert("Please Enter 2 Letters");
+
+      highScorePanel.innerHTML = "High Score:" + highScore;
     }
   });
 }
